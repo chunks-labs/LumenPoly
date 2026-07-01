@@ -18,7 +18,7 @@ export function useFreighter() {
         setHasFreighter(true);
         if (await isAllowed()) {
           const userAddress = await getAddress();
-          setAddress(userAddress);
+          setAddress(userAddress.address);
         }
       }
     }
@@ -32,7 +32,7 @@ export function useFreighter() {
     }
     try {
       const pubKey = await requestAccess();
-      setAddress(pubKey);
+      setAddress(pubKey.address);
     } catch (e) {
       console.error('User rejected connection', e);
     }
@@ -40,7 +40,7 @@ export function useFreighter() {
 
   const signStellarTx = async (xdr: string, network: string = 'TESTNET') => {
     try {
-      return await signTransaction(xdr, { network });
+      return await signTransaction(xdr, { networkPassphrase: network });
     } catch (e) {
       console.error('Failed to sign transaction', e);
       throw e;

@@ -4,7 +4,7 @@ import { useGameStore } from '../store/store';
 import { lumenPolyBoard } from '../data/board';
 
 export const Board: React.FC = () => {
-  const { position, isRolling } = useGameStore();
+  const { isRolling } = useGameStore();
 
   return (
     <div className="relative w-full max-w-4xl aspect-square bg-slate-900 border-4 border-slate-700 rounded-xl p-4 shadow-2xl overflow-hidden mx-auto">

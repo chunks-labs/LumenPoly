@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Board } from './components/Board';
 import { useFreighter } from './hooks/useFreighter';
 import { useGameStore } from './store/store';

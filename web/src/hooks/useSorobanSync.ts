@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useGameStore } from '../store/store';
-import { useFreighter } from './useFreighter';
+// import { useFreighter } from './useFreighter';
 
 // In a real production app, this would use @stellar/stellar-sdk 
 // Server instance to invoke the contract's "get_player" fn.
 export function useSorobanSync(contractId: string) {
   const { address, setGameState } = useGameStore();
-  const { hasFreighter } = useFreighter();
+  // const { hasFreighter } = useFreighter(); // Currently unused but left for future network status checks
 
   useEffect(() => {
     if (!address) return;
