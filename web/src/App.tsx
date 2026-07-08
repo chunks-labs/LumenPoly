@@ -5,7 +5,7 @@ import { useFreighter } from './hooks/useFreighter';
 import { useGameStore } from './store/store';
 import { useSorobanSync } from './hooks/useSorobanSync';
 
-const TESTNET_CONTRACT_ID = "CA...PLACEHOLDER"; // Will be updated after Soroban deployment
+const TESTNET_CONTRACT_ID = "CAEZ25ZM3P24PXRT6RHIXANB2ODVBGXBRQRHGLTDG4XIONPVWXPTDHNY"; // Deployed on Soroban Futurenet
 
 function App() {
   const { address, gamePhase } = useGameStore();

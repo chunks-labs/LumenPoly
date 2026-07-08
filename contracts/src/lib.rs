@@ -50,8 +50,8 @@ impl LumenPolyGame {
 
         // Secure pseudo-randomness in Soroban
         let prng = env.prng();
-        let roll1 = prng.gen_range(1..=6);
-        let roll2 = prng.gen_range(1..=6);
+        let roll1: u64 = prng.gen_range(1..=6);
+        let roll2: u64 = prng.gen_range(1..=6);
         let total_roll = (roll1 + roll2) as u32;
 
         let mut new_position = current_player.position + total_roll;
