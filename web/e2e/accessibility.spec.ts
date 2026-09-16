@@ -12,3 +12,11 @@ test('gameplay has no WCAG AA violations', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Roll the dice' })).toBeVisible();
   const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze(); expect(result.violations.map(violation => ({ id: violation.id, nodes: violation.nodes.map(node => ({ target: node.target, summary: node.failureSummary })) }))).toEqual([]);
 });
+
+for (const label of ['How to play', 'My portfolio', 'Connect wallet']) {
+  test(`${label} view has no WCAG AA violations`, async ({ page }) => {
+    await page.goto('/'); await page.getByRole('button', { name: label, exact: true }).click();
+    const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+    expect(result.violations.map(violation => ({ id: violation.id, nodes: violation.nodes.map(node => ({ target: node.target, summary: node.failureSummary })) }))).toEqual([]);
+  });
+}
