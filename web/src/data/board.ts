@@ -11,7 +11,7 @@ export interface BoardTile {
 }
 
 export const lumenPolyBoard: BoardTile[] = [
-    { id: 0, name: "GO", type: "corner", description: "Collect 200 XLM as your Soroban Node Reward." },
+    { id: 0, name: "Launch", type: "corner", description: "Collect 200 simulated XLM when you pass or land here." },
     { id: 1, name: "Stellar Quest", type: "property", price: 60, rent: 2, color: "brown" },
     { id: 2, name: "Community Chest", type: "community" },
     { id: 3, name: "Freighter Wallet", type: "property", price: 60, rent: 4, color: "brown" },
