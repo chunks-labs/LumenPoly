@@ -2,7 +2,7 @@
   <img src="web/public/favicon.svg" alt="LumenPoly star" width="64" height="64" />
   <h1>LumenPoly</h1>
   <p><strong>Own the board. Learn the network.</strong></p>
-  <p>A Stellar-inspired strategy game for curious minds.<br />Build a portfolio, challenge an AI opponent, and discover the ecosystem—one move at a time.</p>
+  <p>A Monopoly-style property trading game inspired by the Stellar ecosystem.<br />Buy properties, collect rent, build your portfolio, and challenge an AI opponent—one move at a time.</p>
   <p>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-19382e?style=flat-square" alt="MIT license" /></a>
     <img src="https://img.shields.io/badge/Edition-Practice-596b52?style=flat-square" alt="Practice edition" />
