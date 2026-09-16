@@ -1,48 +1,55 @@
-# 🎲 LumenPoly
+# LumenPoly
 
-> "Own the network. Learn the rules of money."
+**Own the board. Learn the network.**
 
-LumenPoly is a next-generation Web3 economic simulator built exclusively for the **Stellar Blockchain** using **Soroban Smart Contracts**. It leverages the speed and low fees of the Stellar network to create a seamless, real-time board game experience.
+LumenPoly is a Stellar-inspired property game. Open the app, choose a piece, and play against Orbit, an AI opponent. A wallet is optional; the app never asks you to connect on entry.
 
-## ✨ Features
+## Play locally
 
-*   **Soroban Smart Contracts:** All game logic (dice rolls, property ownership, and bank management) is executed entirely on-chain.
-*   **Stellar Native Integration:** No EVM wallets allowed. Fully integrated with **Freighter Wallet** (`@stellar/freighter-api`).
-*   **Pre-Game Battle Setup:** A sleek Cyberpunk lobby to choose your player token (🚀 Rocket, 🖥️ Node, 👨‍🚀 Astronaut) and configure AI difficulty.
-*   **AI Opponent Engine:** Don't wait for multiplayer lobbies to fill. Play instantly against a fully simulated `AI_Soroban_Bot` powered by Zustand state management.
-*   **Isometric 3D Board:** A premium, fully responsive CSS 3D transformed tabletop experience.
-*   **Network Dashboard:** Real-time sidebar tracking live XLM balances and an on-chain Action Log.
+Use Node.js 24 and npm:
 
-## 🛠️ Tech Stack
-
-*   **Smart Contracts:** Rust & Soroban SDK (`v20.5.0`)
-*   **Frontend Framework:** React 18 & Vite
-*   **State Management:** Zustand
-*   **Styling:** Tailwind CSS v4 & Framer Motion
-*   **Wallet Integration:** Freighter
-
-## 🚀 Quick Start (Local Development)
-
-### 1. Smart Contract Deployment
-The Rust contracts are located in the `/contracts` directory.
-```bash
-cd contracts
-# Build and optimize the WebAssembly binary
-cargo build --target wasm32-unknown-unknown --release
-stellar contract optimize --wasm target/wasm32-unknown-unknown/release/lumen_poly.wasm
-
-# Deploy to Futurenet
-stellar contract deploy --wasm target/wasm32-unknown-unknown/release/lumen_poly.optimized.wasm --source <your-identity> --network futurenet
-```
-
-### 2. Frontend Launch
-The React frontend is located in the `/web` directory.
-```bash
+```sh
 cd web
-npm install
+npm ci
 npm run dev
 ```
-Open `http://localhost:5173` in your browser. Make sure your Freighter wallet is installed and configured for the **Stellar Futurenet**.
 
-## 🤝 Contributing
-Contributions are welcome! Please check out the issues tab for "Good First Issues" and submit your PRs. All contributions require you to spin up a local Stellar testnet or connect to Futurenet to test Soroban RPC sync interactions.
+Open the URL printed by Vite. Choose **Let’s play**, select a piece and difficulty, and start your practice game.
+
+## What works
+
+- Guest-first overview, game room, portfolio, and in-app rules.
+- Forty board spaces, property purchases, ownership, rent, complete-group bonuses, event cards, fees, and bankruptcy.
+- Three AI buying strategies and a thirty-round finish based on net worth.
+- Local save/restore with validation and storage-failure recovery.
+- Responsive navigation, selectable board spaces, keyboard-accessible dialogs, reduced-motion and high-contrast support.
+- Optional Freighter public-address connection, loaded only when requested.
+
+## Practice and blockchain boundaries
+
+**All gameplay and XLM balances in this release are simulated locally.** They are not wallet balances, deposits, payments, or on-chain transactions. Connecting Freighter does not change this. Saves live in this browser on this device; clearing site data removes them.
+
+`contracts/` contains the earlier experimental Soroban contract. The frontend does not call it. Its rules are not equivalent to the practice engine; multiplayer, real-asset settlement, deployed-contract verification, and production contract hardening remain separate work. No RPC synchronization is claimed by this app.
+
+## Validation
+
+```sh
+cd web
+npm run check
+npx playwright install chromium
+npm run test:e2e
+```
+
+For an existing Chrome installation, use `PLAYWRIGHT_CHANNEL=chrome npm run test:e2e`.
+
+## Project map
+
+- `web/src/game/`: typed, immutable practice rules.
+- `web/src/components/`: dashboard, table, dialogs, portfolio, and learning views.
+- `web/src/store/`: navigation, wallet identity, and persisted match orchestration.
+- `web/src/styles/`: explicit CSS without a utility compiler.
+- `web/tests/` and `web/e2e/`: rule regression and browser tests.
+- `docs/`: gameplay, design, and architecture notes.
+- `contracts/`: experimental Rust/Soroban implementation.
+
+React 19, TypeScript, Vite, Zustand, and the Freighter API power the frontend. LumenPoly is an independent educational project, not affiliated with the Stellar Development Foundation.
