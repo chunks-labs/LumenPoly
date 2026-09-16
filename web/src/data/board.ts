@@ -31,7 +31,7 @@ export const lumenPolyBoard: BoardTile[] = [
     { id: 17, name: "Community Chest", type: "community" },
     { id: 18, name: "Impermanent Loss", type: "property", price: 180, rent: 14, color: "orange" },
     { id: 19, name: "Decentralized Oracle", type: "property", price: 200, rent: 16, color: "orange" },
-    { id: 20, name: "Free Parking", type: "corner", description: "Zero Gas Fees!" },
+    { id: 20, name: "Rest Stop", type: "corner", description: "Take a breather. No fee and no bonus on this space." },
     { id: 21, name: "Flash Loan", type: "property", price: 220, rent: 18, color: "red" },
     { id: 22, name: "Chance", type: "chance" },
     { id: 23, name: "Arbitrage Bot", type: "property", price: 220, rent: 18, color: "red" },
