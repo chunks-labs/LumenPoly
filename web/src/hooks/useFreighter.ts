@@ -6,6 +6,7 @@ export function useFreighter() {
   const busy = useRef(false);
   const generation = useRef(0);
   const setAddress = useGameStore(state => state.setAddress);
+  useEffect(() => () => { generation.current++; busy.current = false; }, []);
   const connect = useCallback(async () => {
     if (busy.current) return;
     busy.current = true;
