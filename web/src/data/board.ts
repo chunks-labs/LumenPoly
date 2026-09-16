@@ -21,7 +21,7 @@ export const lumenPolyBoard: BoardTile[] = [
     { id: 7, name: "Chance", type: "chance" },
     { id: 8, name: "USDC Trustline", type: "property", price: 100, rent: 6, color: "lightblue" },
     { id: 9, name: "Stellar DEX", type: "property", price: 120, rent: 8, color: "lightblue" },
-    { id: 10, name: "Jail / Visiting", type: "corner", description: "Just visiting the Mempool." },
+    { id: 10, name: "Waiting Room", type: "corner", description: "Just visiting is free. If sent here, miss one roll before rejoining the game." },
     { id: 11, name: "Smart Contract Audit", type: "property", price: 140, rent: 10, color: "pink" },
     { id: 12, name: "Stellar Anchor", type: "property", price: 150, rent: 10, color: "white" },
     { id: 13, name: "AMM Liquidity Pool", type: "property", price: 140, rent: 10, color: "pink" },
