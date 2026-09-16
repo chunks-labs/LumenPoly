@@ -15,7 +15,7 @@ export const lumenPolyBoard: BoardTile[] = [
     { id: 1, name: "Stellar Quest", type: "property", price: 60, rent: 2, color: "brown" },
     { id: 2, name: "Community Chest", type: "community" },
     { id: 3, name: "Freighter Wallet", type: "property", price: 60, rent: 4, color: "brown" },
-    { id: 4, name: "Gas Fee Spike", type: "tax", description: "Pay 200 XLM for network surge pricing." },
+    { id: 4, name: "Network Upkeep", type: "tax", description: "Pay a 200 simulated XLM game fee. This is a board-game rule, not an actual Stellar fee." },
     { id: 5, name: "Soroban RPC Node", type: "property", price: 200, rent: 25, color: "gray" },
     { id: 6, name: "Lumen Farm", type: "property", price: 100, rent: 6, color: "lightblue" },
     { id: 7, name: "Chance", type: "chance" },
