@@ -41,7 +41,7 @@ export const lumenPolyBoard: BoardTile[] = [
     { id: 27, name: "Governance Token", type: "property", price: 260, rent: 22, color: "yellow" },
     { id: 28, name: "Bridge Exploit", type: "property", price: 150, rent: 10, color: "white" },
     { id: 29, name: "DAO Treasury", type: "property", price: 280, rent: 24, color: "yellow" },
-    { id: 30, name: "Go To Jail", type: "corner", description: "Smart contract hacked! Go directly to Jail." },
+    { id: 30, name: "Take a Break", type: "corner", description: "Move directly to the Waiting Room. Miss one roll; do not collect a Launch reward for this move." },
     { id: 31, name: "Layer 2 Rollup", type: "property", price: 300, rent: 26, color: "green" },
     { id: 32, name: "Zero-Knowledge Proof", type: "property", price: 300, rent: 26, color: "green" },
     { id: 33, name: "Community Chest", type: "community" },
