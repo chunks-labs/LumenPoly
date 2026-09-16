@@ -6,7 +6,7 @@ import { purchase } from './purchase';
 import { shouldBotBuy } from './ai';
 import { finishRound } from './finish';
 import type { Match } from './types';
-export type GameAction = { type: 'roll' | 'bot'; dice: [number, number] } | { type: 'buy' | 'end' };
+export type GameAction = { type: 'roll' | 'bot'; dice: [number, number] } | { type: 'buy' } | { type: 'end' };
 export function transition(current: Match, action: GameAction, random = Math.random): Match {
   if (current.phase === 'finished') return current;
   if (action.type === 'roll' && current.phase !== 'roll') return current;
