@@ -1,0 +1,70 @@
+/* Reserve space for the workspace header, game title, and board heading. */
+@media (min-width: 701px) {
+  .game-layout {
+    max-width: calc(100dvh + 22px);
+    margin-inline: auto;
+    align-items: start;
+  }
+  .game-board {
+    width: min(100%, max(240px, calc(100dvh - 300px)));
+    min-width: 0;
+    margin-inline: auto;
+    container-type: inline-size;
+  }
+}
+/* Keep player details beside the board instead of consuming its height budget. */
+@media (min-width: 701px) and (max-width: 1200px) {
+  .game-layout {
+    grid-template-columns: minmax(0, 1fr) 200px;
+    gap: 16px;
+  }
+  .game-details {
+    display: flex;
+    grid-row: auto;
+  }
+}
+/* Compact the center when the viewport leaves less room for the table. */
+@container (max-width: 520px) {
+  .board-center {
+    min-height: 0;
+    gap: 12px;
+    padding: 10px;
+  }
+  .board-brand > span,
+  .board-brand small,
+  .board-legend {
+    display: none;
+  }
+  .board-brand strong {
+    font-size: 19px;
+  }
+  .turn-controls {
+    gap: 10px;
+  }
+  .turn-label {
+    display: none;
+  }
+  .die {
+    width: 42px;
+    height: 42px;
+    padding: 8px;
+    gap: 3px;
+  }
+  .turn-announcement {
+    font-size: 9px;
+  }
+}
+@container (max-width: 360px) {
+  .board-brand {
+    display: none;
+  }
+  .board-tile {
+    padding-top: 6px;
+  }
+  .tile-name {
+    font-size: 6px;
+  }
+  .tile-price {
+    display: none;
+  }
+}
