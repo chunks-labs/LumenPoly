@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useGameStore } from '../store/store';
 export function useFreighter() {
   const [status, setStatus] = useState<'idle' | 'connecting' | 'missing' | 'error'>('idle');
