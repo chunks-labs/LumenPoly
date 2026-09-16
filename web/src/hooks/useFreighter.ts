@@ -1,51 +1,53 @@
-import { useState, useEffect } from 'react';
-import {
-  isConnected,
-  isAllowed,
-  requestAccess,
-  getAddress,
-  signTransaction
-} from '@stellar/freighter-api';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useGameStore } from '../store/store';
-
 export function useFreighter() {
-  const [hasFreighter, setHasFreighter] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'connecting' | 'missing' | 'error'>('idle');
+  const [error, setError] = useState('');
+  const busy = useRef(false);
+  const generation = useRef(0);
   const setAddress = useGameStore((state) => state.setAddress);
-
-  useEffect(() => {
-    async function checkFreighter() {
-      if (await isConnected()) {
-        setHasFreighter(true);
-        if (await isAllowed()) {
-          const userAddress = await getAddress();
-          setAddress(userAddress.address);
-        }
+  useEffect(
+    () => () => {
+      generation.current++;
+      busy.current = false;
+    },
+    [],
+  );
+  const connect = useCallback(async () => {
+    if (busy.current) return;
+    busy.current = true;
+    const request = ++generation.current;
+    setStatus('connecting');
+    setError('');
+    try {
+      const api = await import('@stellar/freighter-api');
+      const connected = await api.isConnected();
+      if (request !== generation.current) return;
+      if (!connected.isConnected) {
+        setStatus('missing');
+        return;
       }
+      const response = await api.requestAccess();
+      if (request !== generation.current) return;
+      if (response.error || !/^G[A-Z2-7]{55}$/.test(response.address ?? '')) {
+        throw new Error('Connection was not approved. You can retry or keep playing as a guest.');
+      }
+      setAddress(response.address);
+      setStatus('idle');
+    } catch (cause) {
+      if (request !== generation.current) return;
+      setError(cause instanceof Error ? cause.message : 'Could not connect. Please try again.');
+      setStatus('error');
+    } finally {
+      if (request === generation.current) busy.current = false;
     }
-    checkFreighter();
   }, [setAddress]);
-
-  const connect = async () => {
-    if (!hasFreighter) {
-      alert('Please install the Freighter wallet extension.');
-      return;
-    }
-    try {
-      const pubKey = await requestAccess();
-      setAddress(pubKey.address);
-    } catch (e) {
-      console.error('User rejected connection', e);
-    }
-  };
-
-  const signStellarTx = async (xdr: string, network: string = 'TESTNET') => {
-    try {
-      return await signTransaction(xdr, { networkPassphrase: network });
-    } catch (e) {
-      console.error('Failed to sign transaction', e);
-      throw e;
-    }
-  };
-
-  return { hasFreighter, connect, signStellarTx };
+  const disconnect = useCallback(() => {
+    generation.current++;
+    busy.current = false;
+    setAddress(null);
+    setStatus('idle');
+    setError('');
+  }, [setAddress]);
+  return { connect, disconnect, status, error };
 }

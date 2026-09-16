@@ -1,70 +1,57 @@
-import React from 'react';
+import { Brand } from './Brand';
+import { Icon } from './Icon';
+import type { IconName } from './Icon';
 import { useGameStore } from '../store/store';
-
-export const Sidebar: React.FC = () => {
-  const { address, balance, playerToken, aiState, actionLog } = useGameStore();
-
-  const truncateAddress = (addr: string | null) => {
-    if (!addr) return 'Not Connected';
-    return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
-  };
-
-  const getTokenEmoji = (token: string) => {
-    if (token === 'rocket') return '🚀';
-    if (token === 'node') return '🖥️';
-    return '👨‍🚀';
-  };
-
+import type { Page } from '../store/store';
+const links: { page: Page; label: string; icon: IconName }[] = [
+  { page: 'home', label: 'Overview', icon: 'home' },
+  { page: 'game', label: 'Play a game', icon: 'board' },
+  { page: 'portfolio', label: 'My portfolio', icon: 'chart' },
+  { page: 'learn', label: 'How to play', icon: 'book' },
+];
+export function Sidebar({ onPlay }: { onPlay: () => void }) {
+  const page = useGameStore((state) => state.page);
+  const setPage = useGameStore((state) => state.setPage);
+  const match = useGameStore((state) => state.match);
   return (
-    <div className="w-80 h-screen bg-slate-950 border-r border-slate-800 flex flex-col p-4 text-white font-mono">
-      <div className="mb-8">
-        <h2 className="text-xl font-bold font-orbitron text-cyan-400 mb-4 tracking-wider">NETWORK DASHBOARD</h2>
-        
-        {/* Players List */}
-        <div className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-          <div className="bg-slate-800/50 p-2 text-xs font-bold text-slate-400 uppercase">Live Players</div>
-          
-          {/* User */}
-          <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-cyan-950/20">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-xl border border-cyan-500/30 shadow-[0_0_10px_rgba(34,211,238,0.2)]">
-                {getTokenEmoji(playerToken)}
-              </div>
-              <div>
-                <div className="font-bold text-sm text-cyan-100 flex items-center gap-2">
-                  {truncateAddress(address)} <span className="text-[10px] bg-cyan-500/20 text-cyan-400 px-1.5 py-0.5 rounded">YOU</span>
-                </div>
-                <div className="text-emerald-400 font-bold text-sm">${balance.toLocaleString()} XLM</div>
-              </div>
-            </div>
-          </div>
-
-          {/* AI Bot */}
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-xl border border-red-500/30">
-                🤖
-              </div>
-              <div>
-                <div className="font-bold text-sm text-slate-300">{aiState.name}</div>
-                <div className="text-emerald-400 font-bold text-sm">${aiState.balance.toLocaleString()} XLM</div>
-              </div>
-            </div>
-          </div>
+    <aside className="sidebar">
+      <button className="brand-button" onClick={() => setPage('home')} aria-label="LumenPoly home">
+        <Brand />
+      </button>
+      <span className="nav-caption">YOUR PLAYGROUND</span>
+      <nav aria-label="Main navigation">
+        {links.map((link) => (
+          <button
+            key={link.page}
+            className={`nav-item ${page === link.page ? 'active' : ''}`}
+            aria-current={page === link.page ? 'page' : undefined}
+            onClick={() => (link.page === 'game' && !match ? onPlay() : setPage(link.page))}
+          >
+            <Icon name={link.icon} />
+            <span>{link.label}</span>
+            {link.page === 'game' && <span className="nav-pill">PLAY</span>}
+          </button>
+        ))}
+      </nav>
+      <div className="sidebar-bottom">
+        <div className="sidebar-note">
+          <span className="small-star">✧</span>
+          <h3>
+            A little play.
+            <br />A lot to discover.
+          </h3>
+          <p>Explore the Stellar ecosystem, one move at a time.</p>
+          <button onClick={() => setPage('learn')}>
+            Learn the basics <Icon name="arrow" size={16} />
+          </button>
         </div>
-      </div>
-
-      {/* Action Log */}
-      <div className="flex-1 flex flex-col bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-        <div className="bg-slate-800/50 p-2 text-xs font-bold text-slate-400 uppercase">Action Log</div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-3">
-          {actionLog.map((log, index) => (
-            <div key={index} className="text-xs text-slate-300 border-l-2 border-cyan-500/50 pl-3 py-1">
-              {log}
-            </div>
-          ))}
+        <div className="network-label">
+          <span className="status-dot" />
+          Built around Stellar
+          <Icon name="globe" size={16} />
         </div>
+        <span className="sidebar-version">LumenPoly · Practice edition</span>
       </div>
-    </div>
+    </aside>
   );
-};
+}

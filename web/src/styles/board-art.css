@@ -1,0 +1,180 @@
+.board-art {
+  position: relative;
+  min-width: 0;
+  background: radial-gradient(ellipse at 50% 45%, #55754740, transparent 70%);
+}
+.art-table {
+  width: 290px;
+  height: 290px;
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%) perspective(900px) rotateX(37deg) rotateZ(-27deg);
+  border-radius: 9px;
+  background: #bccb93;
+  border: 6px solid #c4d3a3;
+  box-shadow:
+    -1px 3px 0 #8b9f6a,
+    -2px 6px 0 #8b9f6a,
+    -3px 9px 0 #829761,
+    -4px 12px 0 #829761,
+    0 28px 40px #071e2350;
+}
+.art-grid {
+  height: 100%;
+  display: grid;
+  grid-template: repeat(11, 1fr) / repeat(11, 1fr);
+  gap: 2px;
+  background: #809366;
+  border: 2px solid #86966a;
+  border-radius: 4px;
+}
+.art-tile {
+  position: relative;
+  background: #e4e9ce;
+  color: #476442;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 750;
+  flex-direction: column;
+  overflow: hidden;
+}
+.art-tile i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+}
+.art-tile > span {
+  width: 60%;
+  height: 2px;
+  background: #b6c49b;
+  margin-top: 6px;
+  box-shadow: 0 3px #c4cfad;
+}
+.art-corner {
+  background: #dae3bc;
+}
+.art-center {
+  grid-area: 2/2/11/11;
+  background: radial-gradient(circle at center, #dae5be, #c9d7ab);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid #92a573;
+}
+.art-center:before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid #adbd8c;
+  border-radius: 50%;
+}
+.art-center-star {
+  font-size: 44px;
+  color: #526e46;
+  line-height: 1;
+}
+.art-center strong {
+  font-size: 19px;
+  letter-spacing: 0.12em;
+  margin-top: 9px;
+  color: #3b5937;
+}
+.art-center small {
+  font-size: 5px;
+  letter-spacing: 0.28em;
+  margin-top: 6px;
+  color: #6c8150;
+}
+.art-dice {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+  position: relative;
+}
+.art-dice > span {
+  height: 28px;
+  width: 28px;
+  border-radius: 5px;
+  background: #f5f7e5;
+  box-shadow: -2px 3px #aebf8b;
+  color: #4e6b42;
+  text-align: center;
+  font-size: 27px;
+  line-height: 27px;
+  transform: rotate(12deg);
+}
+.art-dice > span:last-child {
+  transform: rotate(-13deg) translateY(-5px);
+}
+.art-piece {
+  position: absolute;
+  width: 16px;
+  height: 23px;
+  background: #ebdf9a;
+  border-radius: 50% 50% 35% 35%;
+  border: 2px solid #f3edc0;
+  box-shadow: 2px 5px 4px #435a4960;
+}
+.piece-one {
+  right: 4px;
+  bottom: 40px;
+  background: #75946a;
+  border-color: #9cb48a;
+}
+.piece-two {
+  left: 3px;
+  top: 55px;
+}
+.art-orbit {
+  position: absolute;
+  border: 1px solid #82956b25;
+  border-radius: 50%;
+  width: 420px;
+  height: 195px;
+  left: 50%;
+  top: 70px;
+  transform: translateX(-50%) rotate(-26deg);
+}
+.orbit-two {
+  width: 490px;
+  height: 235px;
+  top: 50px;
+}
+.art-spark {
+  position: absolute;
+  color: #a8bd82;
+  font-size: 34px;
+}
+.spark-one {
+  right: 35px;
+  top: 33px;
+}
+.spark-two {
+  left: 2px;
+  bottom: 54px;
+  font-size: 20px;
+}
+.floating-chip {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  border: 1px solid #7b8c5b;
+  background: #3d5537;
+  color: #cfddb5;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 5px 18px #112e3240;
+}

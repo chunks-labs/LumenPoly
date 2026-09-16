@@ -1,0 +1,85 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 43px;
+  padding: 11px 20px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+  touch-action: manipulation;
+}
+.button.primary {
+  background: var(--forest);
+  color: #fff;
+}
+.button.secondary {
+  background: white;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.button.lime {
+  background: var(--lime);
+  color: #243e2d;
+  padding: 14px 23px;
+}
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+  background: none;
+  font-size: 12px;
+  font-weight: 650;
+}
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: #f4f6f1;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.round-button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: white;
+  flex-shrink: 0;
+}
+.button:active:not(:disabled),
+.round-button:active {
+  transform: translateY(1px);
+}
+.button:focus-visible {
+  outline-offset: 4px;
+}
+@media (hover: hover) {
+  .button.primary:hover {
+    background: #2a5041;
+  }
+  .button.lime:hover {
+    background: #e1f5aa;
+  }
+  .button.secondary:hover,
+  .round-button:hover {
+    background: #edf2e7;
+  }
+  .text-button:hover {
+    color: #698a31;
+  }
+  .icon-button:hover {
+    background: #e7eddf;
+  }
+}

@@ -1,92 +1,82 @@
-import React from 'react';
+import { useState } from 'react';
+import { Modal } from './Modal';
+import { Icon } from './Icon';
+import { tokens } from '../data/tokens';
+import { difficulties } from '../data/difficulties';
+import type { AIDifficulty, PlayerToken } from '../game/types';
 import { useGameStore } from '../store/store';
-import type { PlayerToken, AIDifficulty } from '../store/store';
-import { motion } from 'framer-motion';
-
-export const BattleSetup: React.FC = () => {
-  const { playerToken, aiDifficulty, setLobbyConfig, startGame } = useGameStore();
-
-  const handleTokenSelect = (token: PlayerToken) => {
-    setLobbyConfig(token, aiDifficulty);
-  };
-
-  const handleDifficultySelect = (difficulty: AIDifficulty) => {
-    setLobbyConfig(playerToken, difficulty);
-  };
-
+export function BattleSetup({ onClose }: { onClose: () => void }) {
+  const match = useGameStore((state) => state.match);
+  const startGame = useGameStore((state) => state.startGame);
+  const [token, setToken] = useState<PlayerToken>(match?.token ?? 'rocket');
+  const [difficulty, setDifficulty] = useState<AIDifficulty>(match?.difficulty ?? 'easy');
   return (
-    <div className="w-full min-h-screen bg-slate-950 flex flex-col items-center justify-center text-white px-4">
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="max-w-4xl w-full bg-slate-900/80 p-8 rounded-2xl border border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.15)] backdrop-blur-md"
+    <Modal title="Make your first move" onClose={onClose} wide>
+      <p className="muted">Your piece. Your pace. One table full of possibilities.</p>
+      <fieldset className="choice-fieldset">
+        <legend>
+          01 <span>Choose your piece</span>
+        </legend>
+        <div className="token-options">
+          {tokens.map((item) => (
+            <label key={item.id} className={`token-option ${token === item.id ? 'selected' : ''}`}>
+              <input
+                type="radio"
+                name="token"
+                value={item.id}
+                checked={token === item.id}
+                onChange={() => setToken(item.id)}
+              />
+              <span className="token-emoji" aria-hidden="true">
+                {item.symbol}
+              </span>
+              <strong>{item.name}</strong>
+              <small>{item.description}</small>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset className="choice-fieldset">
+        <legend>
+          02 <span>Meet your match</span>
+        </legend>
+        <div className="difficulty-options">
+          {difficulties.map((item) => (
+            <label
+              key={item.id}
+              className={`difficulty-option ${difficulty === item.id ? 'selected' : ''}`}
+            >
+              <input
+                type="radio"
+                name="difficulty"
+                value={item.id}
+                checked={difficulty === item.id}
+                onChange={() => setDifficulty(item.id)}
+              />
+              <span>{item.level}</span>
+              <div>
+                <strong>{item.name}</strong>
+                <small>{item.description}</small>
+              </div>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      {match && match.phase !== 'finished' && (
+        <p className="notice">Starting a new game replaces your saved practice match.</p>
+      )}
+      <button
+        className="button primary full"
+        onClick={() => {
+          startGame(token, difficulty);
+          onClose();
+        }}
       >
-        <div className="text-center mb-10">
-          <h1 className="text-5xl font-bold mb-4 font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400" style={{ textShadow: '0 0 20px rgba(34, 211, 238, 0.4)' }}>
-            STELLAR BATTLE SETUP
-          </h1>
-          <p className="text-slate-400 font-mono">CONFIGURE YOUR MATCH • ENGAGE ENEMY • DOMINATE</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Select Piece */}
-          <div>
-            <h3 className="text-cyan-400 font-mono text-sm mb-4 tracking-widest uppercase">Select Piece</h3>
-            <div className="grid grid-cols-3 gap-3">
-              {(['rocket', 'node', 'astronaut'] as PlayerToken[]).map((token) => (
-                <button
-                  key={token}
-                  onClick={() => handleTokenSelect(token)}
-                  className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
-                    playerToken === token 
-                      ? 'border-cyan-400 bg-cyan-950/50 shadow-[0_0_15px_rgba(34,211,238,0.3)]' 
-                      : 'border-slate-800 bg-slate-900 hover:border-slate-600'
-                  }`}
-                >
-                  <span className="text-2xl">
-                    {token === 'rocket' ? '🚀' : token === 'node' ? '🖥️' : '👨‍🚀'}
-                  </span>
-                  <span className="text-xs font-bold uppercase">{token}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* AI Difficulty */}
-          <div>
-            <h3 className="text-cyan-400 font-mono text-sm mb-4 tracking-widest uppercase">Battle Difficulty</h3>
-            <div className="grid grid-cols-3 gap-3">
-              {(['easy', 'hard', 'boss'] as AIDifficulty[]).map((diff) => (
-                <button
-                  key={diff}
-                  onClick={() => handleDifficultySelect(diff)}
-                  className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
-                    aiDifficulty === diff 
-                      ? diff === 'boss' 
-                        ? 'border-red-500 bg-red-950/50 shadow-[0_0_15px_rgba(239,68,68,0.3)]' 
-                        : 'border-emerald-400 bg-emerald-950/50 shadow-[0_0_15px_rgba(52,211,153,0.3)]'
-                      : 'border-slate-800 bg-slate-900 hover:border-slate-600'
-                  }`}
-                >
-                  <span className="text-2xl">
-                    {diff === 'easy' ? '🟢' : diff === 'hard' ? '🟡' : '💀'}
-                  </span>
-                  <span className="text-xs font-bold uppercase">{diff}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 flex justify-center">
-          <button
-            onClick={startGame}
-            className="px-12 py-4 bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-bold text-xl rounded-full uppercase tracking-wider hover:scale-105 transition-transform shadow-[0_0_30px_rgba(34,211,238,0.4)]"
-          >
-            🚀 Launch Battle
-          </button>
-        </div>
-      </motion.div>
-    </div>
+        Start practice game <Icon name="arrow" />
+      </button>
+      <p className="fine-print">
+        1,500 simulated XLM each · 30 rounds · No wallet or payment required
+      </p>
+    </Modal>
   );
-};
+}
