@@ -4,4 +4,4 @@ export const tokens: { id: PlayerToken; name: string; symbol: string; descriptio
   { id: 'node', name: 'Builder', symbol: '🛰️', description: 'Make the network yours.' },
   { id: 'astronaut', name: 'Explorer', symbol: '🧑‍🚀', description: 'A little curiosity goes far.' },
 ];
-export const tokenSymbol = (id: PlayerToken) => tokens.find(token => token.id === id)!.symbol;
+export const tokenSymbol = (id: PlayerToken) => tokens.find((token) => token.id === id)!.symbol;

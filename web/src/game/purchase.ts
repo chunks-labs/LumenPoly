@@ -3,9 +3,14 @@ import { record } from './events';
 import type { Match, PlayerId } from './types';
 export function canBuy(match: Match, id: PlayerId, tileId: number): boolean {
   const tile = lumenPolyBoard[tileId];
-  return match.phase !== 'finished' && match.pendingProperty === tileId &&
-    match.players[id].position === tileId && tile?.type === 'property' &&
-    !match.owners[tileId] && (tile.price ?? Infinity) <= match.players[id].balance;
+  return (
+    match.phase !== 'finished' &&
+    match.pendingProperty === tileId &&
+    match.players[id].position === tileId &&
+    tile?.type === 'property' &&
+    !match.owners[tileId] &&
+    (tile.price ?? Infinity) <= match.players[id].balance
+  );
 }
 export function purchase(match: Match, id: PlayerId): boolean {
   const tileId = match.pendingProperty;

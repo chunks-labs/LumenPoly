@@ -5,6 +5,14 @@ export function boardPosition(id: number): { gridColumn: number; gridRow: number
   return { gridColumn: 11, gridRow: id - 29 };
 }
 export const groupColors: Record<string, string> = {
-  brown: '#bb8666', lightblue: '#66c5d2', pink: '#d18aac', orange: '#e5a565',
-  red: '#d87570', yellow: '#d6c777', green: '#85b88d', blue: '#809bdd', gray: '#a0a9b7', white: '#b3a5d4',
+  brown: '#bb8666',
+  lightblue: '#66c5d2',
+  pink: '#d18aac',
+  orange: '#e5a565',
+  red: '#d87570',
+  yellow: '#d6c777',
+  green: '#85b88d',
+  blue: '#809bdd',
+  gray: '#a0a9b7',
+  white: '#b3a5d4',
 };

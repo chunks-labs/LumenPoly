@@ -22,13 +22,21 @@ export function land(match: Match, id: PlayerId, random = Math.random) {
     const card = deck[Math.min(deck.length - 1, Math.max(0, Math.floor(random() * deck.length)))];
     if (card.amount < 0) pay(match, id, -card.amount);
     else player.balance += card.amount;
-    record(match, `${card.title}: ${card.text} ${card.amount > 0 ? '+' : ''}${card.amount} XLM.`, 'money');
+    record(
+      match,
+      `${card.title}: ${card.text} ${card.amount > 0 ? '+' : ''}${card.amount} XLM.`,
+      'money',
+    );
   } else if (tile.type === 'property') {
     const owner = match.owners[tile.id];
     if (owner && owner !== id) {
       const rent = rentFor(match, tile.id);
       pay(match, id, rent, owner);
-      record(match, `${player.name} owes ${rent} XLM rent to ${match.players[owner].name}.`, 'money');
+      record(
+        match,
+        `${player.name} owes ${rent} XLM rent to ${match.players[owner].name}.`,
+        'money',
+      );
     } else if (!owner) match.pendingProperty = tile.id;
   }
 }

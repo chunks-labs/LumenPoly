@@ -11,5 +11,8 @@ export function finishRound(match: Match) {
     match.winner = you === bot ? 'draw' : you > bot ? 'you' : 'bot';
     match.phase = 'finished';
     record(match, 'Final round complete. Cash and property value decide the winner.');
-  } else { match.round++; match.phase = 'roll'; }
+  } else {
+    match.round++;
+    match.phase = 'roll';
+  }
 }

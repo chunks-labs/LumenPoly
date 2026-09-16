@@ -1,5 +1,51 @@
 import { boardPosition, groupColors } from '../lib/boardLayout';
 import { lumenPolyBoard } from '../data/board';
 export function BoardArt() {
-  return <div className="board-art" aria-hidden="true"><div className="art-orbit orbit-one" /><div className="art-orbit orbit-two" /><span className="art-spark spark-one">✧</span><span className="art-spark spark-two">✦</span><div className="art-table"><div className="art-grid">{lumenPolyBoard.map(tile => <div key={tile.id} className={`art-tile ${tile.type === 'corner' ? 'art-corner' : ''}`} style={boardPosition(tile.id)}>{tile.color && <i style={{ background: groupColors[tile.color] }} />}{tile.id === 0 ? '↗' : tile.id === 20 ? '✳' : tile.type === 'chance' ? '?' : tile.type === 'community' ? '✦' : <span />}</div>)}<div className="art-center"><span className="art-center-star">✳</span><strong>LUMENPOLY</strong><small>OWN YOUR NEXT MOVE</small><div className="art-dice"><span>⠿</span><span>⠛</span></div></div></div><div className="art-piece piece-one" /><div className="art-piece piece-two" /></div><span className="floating-chip"><span className="status-dot" />Your next move awaits</span></div>;
+  return (
+    <div className="board-art" aria-hidden="true">
+      <div className="art-orbit orbit-one" />
+      <div className="art-orbit orbit-two" />
+      <span className="art-spark spark-one">✧</span>
+      <span className="art-spark spark-two">✦</span>
+      <div className="art-table">
+        <div className="art-grid">
+          {lumenPolyBoard.map((tile) => (
+            <div
+              key={tile.id}
+              className={`art-tile ${tile.type === 'corner' ? 'art-corner' : ''}`}
+              style={boardPosition(tile.id)}
+            >
+              {tile.color && <i style={{ background: groupColors[tile.color] }} />}
+              {tile.id === 0 ? (
+                '↗'
+              ) : tile.id === 20 ? (
+                '✳'
+              ) : tile.type === 'chance' ? (
+                '?'
+              ) : tile.type === 'community' ? (
+                '✦'
+              ) : (
+                <span />
+              )}
+            </div>
+          ))}
+          <div className="art-center">
+            <span className="art-center-star">✳</span>
+            <strong>LUMENPOLY</strong>
+            <small>OWN YOUR NEXT MOVE</small>
+            <div className="art-dice">
+              <span>⠿</span>
+              <span>⠛</span>
+            </div>
+          </div>
+        </div>
+        <div className="art-piece piece-one" />
+        <div className="art-piece piece-two" />
+      </div>
+      <span className="floating-chip">
+        <span className="status-dot" />
+        Your next move awaits
+      </span>
+    </div>
+  );
 }

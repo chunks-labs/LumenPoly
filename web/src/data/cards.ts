@@ -1,4 +1,8 @@
-export interface EventCard { title: string; text: string; amount: number }
+export interface EventCard {
+  title: string;
+  text: string;
+  amount: number;
+}
 export const chanceCards: readonly EventCard[] = [
   { title: 'Builder grant', text: 'Your prototype earns a community grant.', amount: 100 },
   { title: 'Security review', text: 'Invest in an independent contract review.', amount: -50 },

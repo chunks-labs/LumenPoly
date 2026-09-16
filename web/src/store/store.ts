@@ -17,14 +17,17 @@ interface GameStore {
   clearGame: () => void;
 }
 export const useGameStore = create<GameStore>((set, get) => ({
-  page: 'home', address: null, match: loadMatch(), saveFailed: false,
-  setPage: page => set({ page }),
-  setAddress: address => set({ address }),
+  page: 'home',
+  address: null,
+  match: loadMatch(),
+  saveFailed: false,
+  setPage: (page) => set({ page }),
+  setAddress: (address) => set({ address }),
   startGame: (token, difficulty) => {
     const match = createMatch(token, difficulty);
     set({ match, page: 'game', saveFailed: !saveMatch(match) });
   },
-  dispatch: action => {
+  dispatch: (action) => {
     const previous = get().match;
     if (!previous) return;
     const match = transition(previous, action);
